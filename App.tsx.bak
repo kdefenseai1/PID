@@ -7,7 +7,6 @@ import { Camera } from './components/Camera';
 import { FaceCanvas } from './components/FaceCanvas';
 import { getTranslation } from './translations';
 import logo from './logo.png';
-import landingImage from './landing.jpg';
 
 
 // Icons
@@ -98,16 +97,7 @@ const App: React.FC = () => {
     const [personnelSearch, setPersonnelSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [editingPerson, setEditingPerson] = useState<PersonnelData | null>(null);
-    const [showLanding, setShowLanding] = useState(true);
     const ITEMS_PER_PAGE = 50;
-
-    useEffect(() => {
-        // Auto-hide landing screen after 3.5 seconds
-        const timer = setTimeout(() => {
-            setShowLanding(false);
-        }, 3500);
-        return () => clearTimeout(timer);
-    }, []);
 
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const recognitionInterval = useRef<number | null>(null);
@@ -1642,23 +1632,6 @@ const App: React.FC = () => {
                 </div>
             )}
 
-            {/* Landing Screen Overlay */}
-            {showLanding && (
-                <div
-                    onClick={() => setShowLanding(false)}
-                    className="fixed inset-0 z-[9999] bg-black flex items-center justify-center cursor-pointer animate-in fade-in duration-700"
-                >
-                    <img
-                        src={landingImage}
-                        alt="Project PID Landing"
-                        className="w-full h-full object-cover lg:object-contain"
-                    />
-                    <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-2 animate-bounce">
-                        <span className="text-white/60 text-xs font-mono tracking-widest uppercase">Tap to Start</span>
-                        <div className="w-1 h-8 bg-gradient-to-b from-cyan-500 to-transparent rounded-full"></div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
