@@ -157,7 +157,7 @@ export const translations = {
   },
   ko: {
     nav: {
-      title: "센티넬_ID",
+      title: "프로젝트 PID",
       enroll: "등록",
       identify: "식별",
       db: "인물 DB",
