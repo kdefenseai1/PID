@@ -1504,14 +1504,16 @@ const App: React.FC = () => {
                             </button>
                         </div>
 
-                        <div className="p-6 overflow-y-auto space-y-8 flex flex-col">
-                            {/* Visual Architecture Diagram */}
-                            <div className="w-full bg-white dark:bg-slate-950 p-1 rounded-2xl border border-gray-200 dark:border-slate-800 shadow-xl overflow-hidden self-center max-w-3xl">
-                                <img
-                                    src={archImage}
-                                    alt="System Architecture"
-                                    className="w-full h-auto object-contain rounded-xl"
-                                />
+                        <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-10 custom-scrollbar-minimal">
+                            {/* Visual Architecture Diagram - Full Width focus */}
+                            <div className="w-full flex justify-center">
+                                <div className="w-full max-w-5xl bg-white dark:bg-slate-950 p-2 rounded-2xl border border-gray-200 dark:border-slate-800 shadow-xl overflow-hidden">
+                                    <img
+                                        src={archImage}
+                                        alt="System Architecture"
+                                        className="w-full h-auto object-contain rounded-xl"
+                                    />
+                                </div>
                             </div>
 
                             {/* Unified Technical Specifications Box */}
