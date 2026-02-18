@@ -8,6 +8,7 @@ import { FaceCanvas } from './components/FaceCanvas';
 import { getTranslation } from './translations';
 import logo from './logo.png';
 import landingImage from './landing.jpg';
+import archImage from './architecture.jpg';
 
 
 // Icons
@@ -1503,12 +1504,14 @@ const App: React.FC = () => {
                             </button>
                         </div>
 
-                        <div className="p-6 overflow-y-auto space-y-8">
-                            {/* Text Diagram Container */}
-                            <div className="bg-slate-900 dark:bg-slate-950 p-6 rounded-2xl border border-slate-800 shadow-xl overflow-x-auto">
-                                <pre className="font-mono text-xs sm:text-sm leading-relaxed text-cyan-400 whitespace-pre">
-                                    {t.about.diagram}
-                                </pre>
+                        <div className="p-6 overflow-y-auto space-y-8 flex flex-col">
+                            {/* Visual Architecture Diagram */}
+                            <div className="w-full bg-white dark:bg-slate-950 p-1 rounded-2xl border border-gray-200 dark:border-slate-800 shadow-xl overflow-hidden self-center max-w-3xl">
+                                <img
+                                    src={archImage}
+                                    alt="System Architecture"
+                                    className="w-full h-auto object-contain rounded-xl"
+                                />
                             </div>
 
                             {/* Unified Technical Specifications Box */}
