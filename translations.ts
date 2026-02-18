@@ -66,7 +66,8 @@ export const translations = {
       modeCamera: "Live Camera",
       modeUpload: "Analyze Image",
       uploadLabel: "Upload Surveillance Image",
-      similarity: "SIMILARITY"
+      similarity: "SIMILARITY",
+      retake: "Retake Snapshot"
     },
     database: {
       title: "Biometric Database",
@@ -134,24 +135,24 @@ export const translations = {
 `
     },
     manual: {
-        title: "Operation Manual",
-        overviewTitle: "Operational Objective",
-        overviewDesc: "SENTINEL_ID is a tactical biometric identification system developed to verify the identities of North Korean high-ranking officials and key figures. The primary objective is to enable rapid, on-site identification of subjects during surveillance operations or asset acquisition by cross-referencing live biometric data against a secured personnel database.",
-        sec1Title: "1. Enrollment (Local)",
-        sec1Desc: "Build your local biometric database. Upload photos of a subject to extract face vectors. These are stored locally in your browser and are used for matching in Identification mode.",
-        sec2Title: "2. Identification (Live)",
-        sec2Desc: "Perform real-time recognition using your device's camera or by uploading a static image. The system compares detected faces against both your enrolled subjects and the pre-loaded Personnel DB.",
-        sec3Title: "3. Personnel DB Management",
-        sec3Desc: "View and edit the list of North Korean Key Figures. You can modify personnel details or delete specific biometric vectors. Changes are persisted locally."
+      title: "Operation Manual",
+      overviewTitle: "Operational Objective",
+      overviewDesc: "SENTINEL_ID is a tactical biometric identification system developed to verify the identities of North Korean high-ranking officials and key figures. The primary objective is to enable rapid, on-site identification of subjects during surveillance operations or asset acquisition by cross-referencing live biometric data against a secured personnel database.",
+      sec1Title: "1. Enrollment (Local)",
+      sec1Desc: "Build your local biometric database. Upload photos of a subject to extract face vectors. These are stored locally in your browser and are used for matching in Identification mode.",
+      sec2Title: "2. Identification (Live)",
+      sec2Desc: "Perform real-time recognition using your device's camera or by uploading a static image. The system compares detected faces against both your enrolled subjects and the pre-loaded Personnel DB.",
+      sec3Title: "3. Personnel DB Management",
+      sec3Desc: "View and edit the list of North Korean Key Figures. You can modify personnel details or delete specific biometric vectors. Changes are persisted locally."
     },
     security: {
-        title: "Security Notice",
-        sec1Title: "1. Security & Purpose Disclaimer",
-        sec1Desc: "This system is strictly designed for Open Source Intelligence (OSINT) demonstration purposes. It explicitly does NOT contain any classified military intelligence, sensitive government data, or non-public information.",
-        sec2Title: "2. Data Source Attribution",
-        sec2Desc: "The North Korean personnel data embedded in this system is derived exclusively from publicly available records provided by official institutions such as the Ministry of Unification (Information Portal on North Korea) and general media reports.",
-        sec3Title: "3. Privacy-First Architecture",
-        sec3Desc: "This application operates on a strict 'Client-Side Only' architecture. All facial recognition, vector extraction, and data matching processes occur entirely within the user's web browser. No facial images, biometric data, or usage logs are transmitted to external servers or the cloud, ensuring complete data sovereignty and operational security."
+      title: "Security Notice",
+      sec1Title: "1. Security & Purpose Disclaimer",
+      sec1Desc: "This system is strictly designed for Open Source Intelligence (OSINT) demonstration purposes. It explicitly does NOT contain any classified military intelligence, sensitive government data, or non-public information.",
+      sec2Title: "2. Data Source Attribution",
+      sec2Desc: "The North Korean personnel data embedded in this system is derived exclusively from publicly available records provided by official institutions such as the Ministry of Unification (Information Portal on North Korea) and general media reports.",
+      sec3Title: "3. Privacy-First Architecture",
+      sec3Desc: "This application operates on a strict 'Client-Side Only' architecture. All facial recognition, vector extraction, and data matching processes occur entirely within the user's web browser. No facial images, biometric data, or usage logs are transmitted to external servers or the cloud, ensuring complete data sovereignty and operational security."
     }
   },
   ko: {
@@ -219,7 +220,8 @@ export const translations = {
       modeCamera: "실시간 카메라",
       modeUpload: "이미지 분석",
       uploadLabel: "분석할 이미지 업로드",
-      similarity: "일치율"
+      similarity: "일치율",
+      retake: "다시 촬영"
     },
     database: {
       title: "생체 인식 데이터베이스",
@@ -287,24 +289,24 @@ export const translations = {
 `
     },
     manual: {
-        title: "운용 매뉴얼",
-        overviewTitle: "시스템 개요 및 제작 목적",
-        overviewDesc: "SENTINEL_ID는 북한 고위급 인사 및 주요 요인에 대한 신속하고 정확한 신원 식별을 위해 개발된 전술 생체 인식 시스템입니다. 본 시스템은 작전 중 확보된 신병이나 감시 자산을 통해 획득한 대상의 안면 데이터를 분석하고, 기 구축된 북한 주요 인물 데이터베이스와 대조하여 피아 식별 및 대상의 정확한 신원을 확정하는 것을 주 목적으로 합니다.",
-        sec1Title: "1. 등록 (Enrollment)",
-        sec1Desc: "로컬 생체 데이터베이스를 구축하는 모드입니다. 대상의 사진을 업로드하면 얼굴을 자동 감지하고 고유 특징(벡터)을 추출하여 브라우저에 안전하게 저장합니다. 저장된 데이터는 서버로 전송되지 않습니다.",
-        sec2Title: "2. 식별 (Identification)",
-        sec2Desc: "실시간 인식 모드입니다. PC/모바일의 '카메라'를 이용해 실시간 피드를 분석하거나, '이미지 업로드'를 통해 CCTV 캡처 등의 정지 영상을 분석하여 DB와 대조합니다.",
-        sec3Title: "3. 인물 DB 관리",
-        sec3Desc: "등록된 생체 데이터와 탑재된 북한 주요 인물 목록을 열람하고 관리합니다. 인물의 상세 정보를 수정하거나 오인식된 벡터를 개별적으로 삭제할 수 있습니다."
+      title: "운용 매뉴얼",
+      overviewTitle: "시스템 개요 및 제작 목적",
+      overviewDesc: "SENTINEL_ID는 북한 고위급 인사 및 주요 요인에 대한 신속하고 정확한 신원 식별을 위해 개발된 전술 생체 인식 시스템입니다. 본 시스템은 작전 중 확보된 신병이나 감시 자산을 통해 획득한 대상의 안면 데이터를 분석하고, 기 구축된 북한 주요 인물 데이터베이스와 대조하여 피아 식별 및 대상의 정확한 신원을 확정하는 것을 주 목적으로 합니다.",
+      sec1Title: "1. 등록 (Enrollment)",
+      sec1Desc: "로컬 생체 데이터베이스를 구축하는 모드입니다. 대상의 사진을 업로드하면 얼굴을 자동 감지하고 고유 특징(벡터)을 추출하여 브라우저에 안전하게 저장합니다. 저장된 데이터는 서버로 전송되지 않습니다.",
+      sec2Title: "2. 식별 (Identification)",
+      sec2Desc: "실시간 인식 모드입니다. PC/모바일의 '카메라'를 이용해 실시간 피드를 분석하거나, '이미지 업로드'를 통해 CCTV 캡처 등의 정지 영상을 분석하여 DB와 대조합니다.",
+      sec3Title: "3. 인물 DB 관리",
+      sec3Desc: "등록된 생체 데이터와 탑재된 북한 주요 인물 목록을 열람하고 관리합니다. 인물의 상세 정보를 수정하거나 오인식된 벡터를 개별적으로 삭제할 수 있습니다."
     },
     security: {
-        title: "보안 및 출처 고지",
-        sec1Title: "1. 보안 개요 및 목적",
-        sec1Desc: "본 시스템은 공개출처정보(OSINT) 활용 시연을 목적으로 제작되었습니다. 어떠한 군사 기밀이나 비공개 첩보 자료도 포함하고 있지 않음을 명확히 고지합니다.",
-        sec2Title: "2. 데이터 출처",
-        sec2Desc: "탑재된 북한 주요 인물 데이터는 대한민국 통일부의 '북한정보포털' 등 공식 기관에서 공개한 자료와 언론 보도 사진을 기반으로 구축되었습니다.",
-        sec3Title: "3. 아키텍처 보안 강점",
-        sec3Desc: "본 앱은 'Privacy-First(프라이버시 우선)' 아키텍처를 채택하여, 모든 안면 인식 및 벡터 추출 과정이 사용자의 브라우저(클라이언트) 내부에서만 독립적으로 수행됩니다. 어떠한 이미지나 생체 데이터도 외부 서버나 클라우드로 전송되지 않아 데이터 유출 위협으로부터 안전합니다."
+      title: "보안 및 출처 고지",
+      sec1Title: "1. 보안 개요 및 목적",
+      sec1Desc: "본 시스템은 공개출처정보(OSINT) 활용 시연을 목적으로 제작되었습니다. 어떠한 군사 기밀이나 비공개 첩보 자료도 포함하고 있지 않음을 명확히 고지합니다.",
+      sec2Title: "2. 데이터 출처",
+      sec2Desc: "탑재된 북한 주요 인물 데이터는 대한민국 통일부의 '북한정보포털' 등 공식 기관에서 공개한 자료와 언론 보도 사진을 기반으로 구축되었습니다.",
+      sec3Title: "3. 아키텍처 보안 강점",
+      sec3Desc: "본 앱은 'Privacy-First(프라이버시 우선)' 아키텍처를 채택하여, 모든 안면 인식 및 벡터 추출 과정이 사용자의 브라우저(클라이언트) 내부에서만 독립적으로 수행됩니다. 어떠한 이미지나 생체 데이터도 외부 서버나 클라우드로 전송되지 않아 데이터 유출 위협으로부터 안전합니다."
     }
   }
 };

@@ -86,6 +86,7 @@ const App: React.FC = () => {
 
     // Recognition Image Upload State (Single)
     const [uploadedImageSrc, setUploadedImageSrc] = useState<string | null>(null);
+    const [capturedImage, setCapturedImage] = useState<string | null>(null);
     const [uploadedImageDims, setUploadedImageDims] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
     const recogFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -264,41 +265,9 @@ const App: React.FC = () => {
         reader.readAsText(file);
     };
 
-    // 3. Main Loop for Camera (Recognition Mode Only)
-    const processFrame = useCallback(async () => {
-        if (mode === AppMode.RECOGNIZE && recogMethod === 'upload') return; // Don't process camera in upload mode
-        if (!videoRef.current || videoRef.current.paused || videoRef.current.ended) return;
-
-        const result = await faceService.getDescriptor(videoRef.current);
-
-        if (result) {
-            setCurrentDetection(result.detection);
-
-            if (mode === AppMode.RECOGNIZE) {
-                const match = faceService.identifyFace(result.descriptor, database);
-                setCurrentMatch(match);
-            }
-        } else {
-            setCurrentDetection(null);
-            setCurrentMatch(null);
-        }
-    }, [mode, database, recogMethod]);
-
-    useEffect(() => {
-        if (!isLoading && mode === AppMode.RECOGNIZE && recogMethod === 'camera') {
-            recognitionInterval.current = window.setInterval(processFrame, 500); // 2 FPS check
-        } else {
-            if (recognitionInterval.current) clearInterval(recognitionInterval.current);
-            if (mode === AppMode.RECOGNIZE && recogMethod === 'camera') {
-                // If switching back to camera, clear static detections
-                setCurrentDetection(null);
-                setCurrentMatch(null);
-            }
-        }
-        return () => {
-            if (recognitionInterval.current) clearInterval(recognitionInterval.current);
-        };
-    }, [mode, isLoading, processFrame, recogMethod]);
+    // 3. Analysis Loop Logic
+    // REMOVED real-time recognitionInterval to prevent flickering. 
+    // Analysis is now triggered manually via Capture or Upload.
 
     // Processing Helper for Enroll Images
     const processEnrollmentImage = async (item: EnrollImageItem) => {
@@ -348,6 +317,31 @@ const App: React.FC = () => {
                 setCurrentMatch(null);
             }
         }
+    };
+
+    const handleCapture = async (dataUrl: string) => {
+        setCapturedImage(dataUrl);
+        const img = new Image();
+        img.src = dataUrl;
+        await img.decode();
+
+        setUploadedImageDims({ width: img.naturalWidth, height: img.naturalHeight });
+        const result = await faceService.getDescriptorFromImage(img);
+
+        if (result) {
+            const match = faceService.identifyFace(result.descriptor, database);
+            setCurrentMatch(match);
+            setCurrentDetection(result.detection);
+        } else {
+            setCurrentDetection(null);
+            setCurrentMatch(null);
+        }
+    };
+
+    const handleRetake = () => {
+        setCapturedImage(null);
+        setCurrentDetection(null);
+        setCurrentMatch(null);
     };
 
     const onRecogImageLoad = async (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -471,6 +465,7 @@ const App: React.FC = () => {
     const resetView = (newMode: AppMode) => {
         setMode(newMode);
         setUploadedImageSrc(null);
+        setCapturedImage(null);
         setCurrentDetection(null);
         setCurrentMatch(null);
         setEnrollImages([]);
@@ -732,7 +727,7 @@ const App: React.FC = () => {
                                         <div
                                             key={img.id}
                                             className={`relative aspect-square rounded-lg overflow-hidden border-2 group ${img.status === 'valid' ? 'border-green-500' :
-                                                    img.status === 'invalid' ? 'border-red-500 opacity-60' : 'border-slate-300 dark:border-slate-600 animate-pulse'
+                                                img.status === 'invalid' ? 'border-red-500 opacity-60' : 'border-slate-300 dark:border-slate-600 animate-pulse'
                                                 }`}
                                         >
                                             <img src={img.src} alt="thumb" className="w-full h-full object-cover" />
@@ -911,29 +906,56 @@ const App: React.FC = () => {
 
                             <div className={`relative min-h-[300px] sm:min-h-[480px] rounded-2xl overflow-hidden flex items-center justify-center shadow-2xl transition-colors duration-300 ${recogMethod === 'camera' ? 'bg-black' : 'bg-gray-100 dark:bg-slate-900'} ${(recogMethod === 'upload' && !uploadedImageSrc) ? '' : 'border border-gray-200 dark:border-slate-700'}`}>
                                 {recogMethod === 'camera' ? (
-                                    <>
-                                        <Camera
-                                            isActive={mode === AppMode.RECOGNIZE && recogMethod === 'camera'}
-                                            onVideoReady={(v) => { videoRef.current = v; }}
-                                        />
-                                        {/* Scanning Effect Overlay */}
-                                        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-                                            <div className="w-full h-1 bg-cyan-500/50 blur-sm absolute top-0 animate-[scan_3s_linear_infinite]"></div>
-                                        </div>
-                                        <style>{`
-                            @keyframes scan {
-                                0% { top: 0%; opacity: 0; }
-                                10% { opacity: 1; }
-                                90% { opacity: 1; }
-                                100% { top: 100%; opacity: 0; }
-                            }
-                        `}</style>
-                                        <FaceCanvas
-                                            detection={currentDetection}
-                                            label={currentMatch ? `${currentMatch.name} (${Math.round(currentMatch.similarity)}%)` : (currentDetection ? t.recognize.unknown : undefined)}
-                                            color={currentMatch ? '#06b6d4' : '#ef4444'}
-                                        />
-                                    </>
+                                    <div className="relative w-full h-full flex items-center justify-center">
+                                        {!capturedImage ? (
+                                            <>
+                                                <Camera
+                                                    isActive={mode === AppMode.RECOGNIZE && recogMethod === 'camera'}
+                                                    onVideoReady={(v) => { videoRef.current = v; }}
+                                                    onCapture={handleCapture}
+                                                />
+                                                {/* Scanning Effect Overlay */}
+                                                <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+                                                    <div className="w-full h-1 bg-cyan-500/50 blur-sm absolute top-0 animate-[scan_3s_linear_infinite]"></div>
+                                                </div>
+                                                <style>{`
+                                                    @keyframes scan {
+                                                        0% { top: 0%; opacity: 0; }
+                                                        10% { opacity: 1; }
+                                                        90% { opacity: 1; }
+                                                        100% { top: 100%; opacity: 0; }
+                                                    }
+                                                `}</style>
+                                            </>
+                                        ) : (
+                                            <div className="relative w-full h-full group">
+                                                <img
+                                                    src={capturedImage}
+                                                    alt="Captured"
+                                                    className="w-full h-full object-contain max-h-[480px]"
+                                                />
+                                                {/* Retake Button Overlay */}
+                                                <div
+                                                    onClick={handleRetake}
+                                                    className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center cursor-pointer backdrop-blur-sm"
+                                                >
+                                                    <IconRefresh />
+                                                    <span className="mt-2 text-sm font-bold text-white tracking-wider uppercase">{t.recognize.retake || 'RETAKE'}</span>
+                                                </div>
+
+                                                {uploadedImageDims.width > 0 && (
+                                                    <FaceCanvas
+                                                        detection={currentDetection}
+                                                        label={currentMatch ? `${currentMatch.name} (${Math.round(currentMatch.similarity)}%)` : (currentDetection ? t.recognize.unknown : undefined)}
+                                                        color={currentMatch ? '#06b6d4' : '#ef4444'}
+                                                        width={uploadedImageDims.width}
+                                                        height={uploadedImageDims.height}
+                                                        mirror={false}
+                                                    />
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
                                 ) : (
                                     // Recognition Image Upload with Click-to-Change
                                     <div className="w-full h-full flex flex-col items-center justify-center">

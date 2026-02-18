@@ -3,16 +3,39 @@ import { VIDEO_SIZE } from '../constants';
 
 interface CameraProps {
   onVideoReady: (video: HTMLVideoElement) => void;
+  onCapture?: (imageData: string) => void;
   isActive: boolean;
+  isCaptured?: boolean;
 }
 
-export const Camera: React.FC<CameraProps> = ({ onVideoReady, isActive }) => {
+export const Camera: React.FC<CameraProps> = ({ onVideoReady, isActive, onCapture, isCaptured }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('user');
 
   const toggleCamera = () => {
     setFacingMode(prev => prev === 'user' ? 'environment' : 'user');
+  };
+
+  const captureFrame = () => {
+    if (videoRef.current && canvasRef.current && onCapture) {
+      const canvas = canvasRef.current;
+      const video = videoRef.current;
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        // Apply flip if front camera
+        if (facingMode === 'user') {
+          ctx.translate(canvas.width, 0);
+          ctx.scale(-1, 1);
+        }
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+        onCapture(dataUrl);
+      }
+    }
   };
 
 
@@ -88,18 +111,34 @@ export const Camera: React.FC<CameraProps> = ({ onVideoReady, isActive }) => {
         ref={videoRef}
         width={VIDEO_SIZE.width}
         height={VIDEO_SIZE.height}
-        className={`w-full h-auto object-cover transform ${facingMode === 'user' ? 'scale-x-[-1]' : ''}`}
+        className={`w-full h-auto object-cover transform ${facingMode === 'user' ? 'scale-x-[-1]' : ''} ${isCaptured ? 'hidden' : ''}`}
         muted
         playsInline
       />
-      {/* Camera Toggle Button */}
-      <button
-        onClick={toggleCamera}
-        className="absolute bottom-6 right-6 z-10 p-4 bg-cyan-600/80 hover:bg-cyan-500 text-white rounded-full shadow-lg backdrop-blur-md transition-all active:scale-95"
-        title="Flip Camera"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" /><path d="M16 16h5v5" /></svg>
-      </button>
+      <canvas ref={canvasRef} className="hidden" />
+
+      {/* Buttons Overlay */}
+      {!isCaptured && (
+        <div className="absolute bottom-6 right-6 flex space-x-4 z-10">
+          {/* Capture Button */}
+          <button
+            onClick={captureFrame}
+            className="p-5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-full shadow-2xl backdrop-blur-md transition-all active:scale-90 flex items-center justify-center group"
+            title="Capture Image"
+          >
+            <div className="w-6 h-6 border-4 border-white rounded-full group-hover:scale-110 transition-transform"></div>
+          </button>
+
+          {/* Camera Toggle Button */}
+          <button
+            onClick={toggleCamera}
+            className="p-5 bg-slate-800/80 hover:bg-slate-700 text-white rounded-full shadow-lg backdrop-blur-md transition-all active:scale-95"
+            title="Flip Camera"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M3 12a9 9 0 0 0 9 9 9.75 9 0 0 0 6.74-2.74L21 16" /><path d="M16 16h5v5" /></svg>
+          </button>
+        </div>
+      )}
 
       {/* HUD Overlay Lines & Silhouette */}
       <div className="absolute inset-0 pointer-events-none">
