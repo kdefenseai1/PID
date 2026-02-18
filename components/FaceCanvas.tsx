@@ -10,11 +10,11 @@ interface FaceCanvasProps {
   mirror?: boolean;
 }
 
-export const FaceCanvas: React.FC<FaceCanvasProps> = ({ 
-  detection, 
-  label, 
-  color = '#06b6d4', 
-  width = VIDEO_SIZE.width, 
+export const FaceCanvas: React.FC<FaceCanvasProps> = ({
+  detection,
+  label,
+  color = '#06b6d4',
+  width = VIDEO_SIZE.width,
   height = VIDEO_SIZE.height,
   mirror = true
 }) => {
@@ -31,7 +31,7 @@ export const FaceCanvas: React.FC<FaceCanvasProps> = ({
 
     if (detection) {
       const { x, y, width: boxW, height: boxH } = detection.box;
-      
+
       let drawX = x;
       if (mirror) {
         // Mirror the coordinates because the video is mirrored via CSS
@@ -78,37 +78,34 @@ export const FaceCanvas: React.FC<FaceCanvasProps> = ({
 
       // --- Label Drawing ---
       if (label) {
-        const fontSize = 14;
-        const padding = 8;
-        ctx.font = `bold ${fontSize}px "JetBrains Mono", monospace`;
-        
+        // Calculate font size relative to height to keep it visually consistent
+        // 18px at 480px height is a good baseline
+        const fontSize = Math.max(14, Math.floor((height / 480) * 18));
+        const padding = fontSize * 0.6;
+        ctx.font = `bold ${fontSize}px "Inter", "Pretendard", system-ui, sans-serif`;
+
         const textMetrics = ctx.measureText(label);
         const textWidth = textMetrics.width;
-        const bgHeight = fontSize + padding * 2;
+        const bgHeight = fontSize + padding;
         const bgWidth = textWidth + padding * 2;
 
         // Label Background (Bottom Center of Box)
-        // Positioned slightly below the box
         const labelX = drawX + (boxW / 2) - (bgWidth / 2);
-        const labelY = y + boxH + 10; 
+        const labelY = y + boxH + (height * 0.02); // 2% of height offset
 
         ctx.fillStyle = color;
-        ctx.globalAlpha = 0.9;
-        
-        // Draw Label Background shape with small angled corners
+        ctx.globalAlpha = 0.95;
+
         ctx.beginPath();
-        ctx.moveTo(labelX, labelY);
-        ctx.lineTo(labelX + bgWidth, labelY);
-        ctx.lineTo(labelX + bgWidth, labelY + bgHeight);
-        ctx.lineTo(labelX, labelY + bgHeight);
+        ctx.roundRect ? ctx.roundRect(labelX, labelY, bgWidth, bgHeight, 4) : ctx.rect(labelX, labelY, bgWidth, bgHeight);
         ctx.fill();
 
         // Text
         ctx.globalAlpha = 1.0;
-        ctx.fillStyle = '#000000'; // Black text on colored background for contrast
+        ctx.fillStyle = '#FFFFFF'; // White text for better contrast on dark/colored bg
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(label, labelX + bgWidth / 2, labelY + bgHeight / 2);
+        ctx.fillText(label, labelX + bgWidth / 2, labelY + bgHeight / 2 + 1); // +1 for visual baseline adjustment
       }
     }
   }, [detection, label, color, width, height, mirror]);
