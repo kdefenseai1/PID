@@ -1,0 +1,7 @@
+{
+  "name": "Sentinel FaceID",
+  "description": "A standalone, privacy-first biometric face recognition system running entirely in the browser using TensorFlow.js (via face-api). Features local enrollment, real-time identification, and Gemini-powered profile generation.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
