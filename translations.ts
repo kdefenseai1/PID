@@ -57,9 +57,11 @@ export const translations = {
       analysisTitle: "Person Analysis",
       confidence: "CONFIDENCE",
       confidenceLevel: {
-        high: "HIGH PROBABILITY MATCH",
-        medium: "POSSIBLE MATCH",
-        low: "LOW CONFIDENCE"
+        level1: "HIGH PROBABILITY MATCH",
+        level2: "HIGH MATCH LIKELIHOOD",
+        level3: "MATCH LIKELIHOOD",
+        level4: "LOW MATCH LIKELIHOOD",
+        level5: "RECONFIRMATION REQUIRED"
       },
       scanning: "SCANNING FOR TARGETS...",
       verified: "VERIFIED PERSONNEL",
@@ -211,9 +213,11 @@ export const translations = {
       analysisTitle: "인물 분석",
       confidence: "신뢰도",
       confidenceLevel: {
-        high: "높은 일치 확률",
-        medium: "일치 가능성 있음",
-        low: "낮은 신뢰도"
+        level1: "일치 확률 높음",
+        level2: "높은 일치 가능성",
+        level3: "일치 가능성",
+        level4: "낮은 일치 가능성",
+        level5: "재확인 필요"
       },
       scanning: "목표 스캔 중...",
       verified: "신원 확인됨",

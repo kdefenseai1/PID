@@ -517,20 +517,32 @@ const App: React.FC = () => {
 
     // Helper to determine match style
     const getConfidenceStyle = (score: number) => {
-        if (score >= 85) return {
-            label: t.recognize.confidenceLevel.high,
+        if (score >= 90) return {
+            label: t.recognize.confidenceLevel.level1,
             color: 'text-green-600 dark:text-green-400',
             bg: 'bg-green-500',
             border: 'border-green-500/50'
         };
+        if (score >= 80) return {
+            label: t.recognize.confidenceLevel.level2,
+            color: 'text-emerald-600 dark:text-emerald-400',
+            bg: 'bg-emerald-500',
+            border: 'border-emerald-500/50'
+        };
         if (score >= 70) return {
-            label: t.recognize.confidenceLevel.medium,
+            label: t.recognize.confidenceLevel.level3,
             color: 'text-yellow-600 dark:text-yellow-400',
             bg: 'bg-yellow-500',
             border: 'border-yellow-500/50'
         };
+        if (score >= 60) return {
+            label: t.recognize.confidenceLevel.level4,
+            color: 'text-orange-600 dark:text-orange-400',
+            bg: 'bg-orange-500',
+            border: 'border-orange-500/50'
+        };
         return {
-            label: t.recognize.confidenceLevel.low,
+            label: t.recognize.confidenceLevel.level5,
             color: 'text-red-600 dark:text-red-400',
             bg: 'bg-red-500',
             border: 'border-red-500/50'
