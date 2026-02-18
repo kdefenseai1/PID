@@ -102,10 +102,10 @@ const App: React.FC = () => {
     const ITEMS_PER_PAGE = 50;
 
     useEffect(() => {
-        // Auto-hide landing screen after 3.5 seconds
+        // Auto-hide landing screen after 5 seconds
         const timer = setTimeout(() => {
             setShowLanding(false);
-        }, 3500);
+        }, 5000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -595,12 +595,20 @@ const App: React.FC = () => {
     };
 
     // Render Logic
-    if (isLoading) {
+    if (isLoading || showLanding) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-slate-900 text-cyan-600 dark:text-cyan-400 transition-colors">
-                <div className="text-center animate-pulse">
-                    <h2 className="text-3xl font-mono font-bold tracking-widest mb-4">{t.loading.title}</h2>
-                    <p className="text-slate-500 dark:text-slate-500">{t.loading.desc}</p>
+            <div
+                className="fixed inset-0 z-[9999] bg-black flex items-center justify-center cursor-pointer animate-in fade-in duration-700"
+                onClick={() => setShowLanding(false)}
+            >
+                <img
+                    src={landingImage}
+                    alt="Project PID Landing"
+                    className="w-full h-full object-cover lg:object-contain"
+                />
+                <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-2 animate-bounce">
+                    <span className="text-white/60 text-xs font-mono tracking-widest uppercase">Tap to Start</span>
+                    <div className="w-1 h-8 bg-gradient-to-b from-cyan-500 to-transparent rounded-full"></div>
                 </div>
             </div>
         );
@@ -1642,23 +1650,6 @@ const App: React.FC = () => {
                 </div>
             )}
 
-            {/* Landing Screen Overlay */}
-            {showLanding && (
-                <div
-                    onClick={() => setShowLanding(false)}
-                    className="fixed inset-0 z-[9999] bg-black flex items-center justify-center cursor-pointer animate-in fade-in duration-700"
-                >
-                    <img
-                        src={landingImage}
-                        alt="Project PID Landing"
-                        className="w-full h-full object-cover lg:object-contain"
-                    />
-                    <div className="absolute bottom-10 left-0 right-0 flex flex-col items-center gap-2 animate-bounce">
-                        <span className="text-white/60 text-xs font-mono tracking-widest uppercase">Tap to Start</span>
-                        <div className="w-1 h-8 bg-gradient-to-b from-cyan-500 to-transparent rounded-full"></div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
