@@ -1386,11 +1386,10 @@ const App: React.FC = () => {
                             </button>
                         </div>
 
-                        <div className="p-6 overflow-y-auto space-y-8 text-slate-700 dark:text-slate-300">
+                        <div className="p-8 overflow-y-auto space-y-10 text-slate-700 dark:text-slate-300">
                             {/* Overview Section */}
-                            <div className="bg-slate-50 dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 mb-2">
-                                <h4 className="font-bold text-slate-800 dark:text-white mb-3 text-lg flex items-center gap-2">
-                                    <span className="w-1.5 h-6 bg-cyan-600 rounded-full"></span>
+                            <div className="mb-2">
+                                <h4 className="font-bold text-slate-800 dark:text-white mb-4 text-xl flex items-center gap-2">
                                     {t.manual.overviewTitle}
                                 </h4>
                                 <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed whitespace-pre-wrap">
@@ -1398,30 +1397,34 @@ const App: React.FC = () => {
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="bg-gray-50 dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700">
-                                    <h4 className="font-bold text-cyan-600 dark:text-cyan-400 mb-2 flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-cyan-600 dark:bg-cyan-400"></span>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                <div className="">
+                                    <h4 className="font-bold text-cyan-600 dark:text-cyan-400 mb-3 text-lg">
                                         {t.manual.sec1Title}
                                     </h4>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{t.manual.sec1Desc}</p>
                                 </div>
 
-                                <div className="bg-gray-50 dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700">
-                                    <h4 className="font-bold text-indigo-600 dark:text-indigo-400 mb-2 flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+                                <div className="">
+                                    <h4 className="font-bold text-indigo-600 dark:text-indigo-400 mb-3 text-lg">
                                         {t.manual.sec2Title}
                                     </h4>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{t.manual.sec2Desc}</p>
                                 </div>
 
-                                <div className="bg-gray-50 dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 md:col-span-2">
-                                    <h4 className="font-bold text-green-600 dark:text-green-400 mb-2 flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-400"></span>
+                                <div className="md:col-span-2">
+                                    <h4 className="font-bold text-green-600 dark:text-green-400 mb-3 text-lg">
                                         {t.manual.sec3Title}
                                     </h4>
                                     <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{t.manual.sec3Desc}</p>
                                 </div>
+                            </div>
+
+                            {/* Manual Footer */}
+                            <div className="pt-10 border-t border-gray-100 dark:border-slate-800 flex flex-col items-center text-center space-y-1.5 opacity-80">
+                                <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">국방에 헌신하는 모든 장병들을 위해 이 앱을 제작하였습니다.(중령 조홍래)</p>
+                                <p className="text-cyan-600 dark:text-cyan-500 text-xs font-mono font-bold">Project Face ID, Ver 1.0 ('26.2.19.)</p>
+                                <p className="text-slate-400 dark:text-slate-500 text-[10px] uppercase tracking-widest">© 2026, KdefenseAI. All rights reserved</p>
                             </div>
                         </div>
                     </div>

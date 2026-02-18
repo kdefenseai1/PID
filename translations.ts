@@ -165,8 +165,8 @@ export const translations = {
       db: "인물 DB",
       settings: "설정",
       arch: "시스템 아키텍처",
-      manual: "운용 매뉴얼",
-      security: "보안 고지",
+      manual: "운용 메뉴얼",
+      security: "보안 및 출처 고지",
       themeDark: "다크 모드",
       themeLight: "라이트 모드",
       langKo: "한글",
@@ -293,7 +293,7 @@ export const translations = {
 `
     },
     manual: {
-      title: "운용 매뉴얼",
+      title: "운용 메뉴얼",
       overviewTitle: "시스템 개요 및 제작 목적",
       overviewDesc: "SENTINEL_ID는 북한 고위급 인사 및 주요 요인에 대한 신속하고 정확한 신원 식별을 위해 개발된 전술 생체 인식 시스템입니다. 본 시스템은 작전 중 확보된 신병이나 감시 자산을 통해 획득한 대상의 안면 데이터를 분석하고, 기 구축된 북한 주요 인물 데이터베이스와 대조하여 피아 식별 및 대상의 정확한 신원을 확정하는 것을 주 목적으로 합니다.",
       sec1Title: "1. 등록 (Enrollment)",
@@ -301,7 +301,7 @@ export const translations = {
       sec2Title: "2. 식별 (Identification)",
       sec2Desc: "실시간 인식 모드입니다. PC/모바일의 '카메라'를 이용해 실시간 피드를 분석하거나, '이미지 업로드'를 통해 CCTV 캡처 등의 정지 영상을 분석하여 DB와 대조합니다.",
       sec3Title: "3. 인물 DB 관리",
-      sec3Desc: "등록된 생체 데이터와 탑재된 북한 주요 인물 목록을 열람하고 관리합니다. 인물의 상세 정보를 수정하거나 오인식된 벡터를 개별적으로 삭제할 수 있습니다."
+      sec3Desc: "등록된 생체 데이터와 탑재된 북한 주요 인물 목록을 열람하고 관리합니다. 인물의 상세 정보를 수정하거나 오인식된 벡터를 개별적으로 삭제할 수 있습니다. (현재 김정은을 포함한 15명에 대한 227개의 공개 사진에 대한 벡터화한 데이터가 포함되어 있습니다. / '26.2.19일 기준)"
     },
     security: {
       title: "보안 및 출처 고지",
